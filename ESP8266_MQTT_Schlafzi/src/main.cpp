@@ -19,11 +19,10 @@ const char* wifi_password = "I have a stream!42(0)"; // Your personal network pa
 
 // MQTT
 const char* mqtt_server = "192.168.178.82";  // IP of the MQTT broker
-const char* humidity_topic = "home/livingroom/humidity";
-const char* temperature_topic = "home/livingroom/temperature";
-const char* mqtt_username = "cdavid"; // MQTT username
-const char* mqtt_password = "cdavid"; // MQTT password
-const char* clientID = "client_livingroom"; // MQTT client ID
+const char* co2_topic = "home/schlafzimmer/co2";
+const char* mqtt_username = "jojo"; // MQTT username
+const char* mqtt_password = "JaJoLaKa122"; // MQTT password
+const char* clientID = "client_schlafzimmer"; // MQTT client ID
 
 // Initialise the WiFi and MQTT Client objects
 WiFiClient wifiClient;
@@ -77,16 +76,16 @@ void loop() {
   Serial.println(CO2);
 
   // PUBLISH to the MQTT Broker (topic = CO2, defined at the beginning)
-  if (client.publish(temperature_topic, String(t).c_str())) {
-    Serial.println("Temperature sent!");
+  if (client.publish(co2_topic, String(CO2).c_str())) {
+    Serial.println("CO2 sent!");
   }
   // Again, client.publish will return a boolean value depending on whether it succeded or not.
   // If the message failed to send, we will try again, as the connection may have broken.
   else {
-    Serial.println("Temperature failed to send. Reconnecting to MQTT Broker and trying again");
+    Serial.println("CO2 failed to send. Reconnecting to MQTT Broker and trying again");
     client.connect(clientID, mqtt_username, mqtt_password);
     delay(10); // This delay ensures that client.publish doesn't clash with the client.connect call
-    client.publish(temperature_topic, String(t).c_str());
+    client.publish(co2_topic, String(CO2).c_str());
   }
 
   client.disconnect();  // disconnect from the MQTT broker
