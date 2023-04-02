@@ -110,7 +110,7 @@ void loop() {
   switch (dht_status)
     {
       case DHT20_OK:
-        Serial.print("DHTR20 OK");
+        Serial.print("DHT20 OK");
         break;
       case DHT20_ERROR_CHECKSUM:
         Serial.print("CDHTR20 hecksum error");
